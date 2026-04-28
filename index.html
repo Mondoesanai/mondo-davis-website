@@ -77,24 +77,6 @@
     @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     @keyframes tickerScrollRTL { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 
-    /* ─── HERO PULSE RINGS ─── */
-    .hero-ring {
-      position: absolute; border-radius: 50%; border: 1px solid rgba(92,255,61,.18);
-      animation: ringPulse 4s ease-out infinite; pointer-events: none;
-    }
-    @keyframes ringPulse {
-      0% { transform: translate(-50%,-50%) scale(.6); opacity: .7; }
-      100% { transform: translate(-50%,-50%) scale(1.6); opacity: 0; }
-    }
-
-    /* ─── SCAN LINE ─── */
-    .scan-line {
-      position: absolute; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(92,255,61,.5), transparent);
-      animation: scanDown 6s linear infinite; pointer-events: none; z-index: 2;
-    }
-    @keyframes scanDown { from { top: 0%; } to { top: 100%; } }
-
     /* ─── FLOATING SHAPES ─── */
     #floatCanvas {
       position: fixed; inset: 0; pointer-events: none; z-index: 1;
@@ -731,7 +713,20 @@
     }
     .book-grid {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: center; margin-top: 60px;
+      gap: 80px; align-items: start; margin-top: 60px;
+    }
+    .book-reviews { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+    .book-review-card {
+      border-left: 2px solid rgba(92,255,61,.4); padding: 14px 18px;
+      background: rgba(92,255,61,.04); position: relative;
+    }
+    .book-review-quote {
+      font-size: 14px; line-height: 1.65; color: rgba(255,255,255,.62);
+      font-style: italic; margin: 0 0 8px;
+    }
+    .book-review-meta {
+      font-family: 'Oswald', sans-serif; font-size: 11px;
+      letter-spacing: .18em; color: var(--green); opacity: .7;
     }
 
     /* CSS Book Mockup */
@@ -909,11 +904,6 @@
 <!-- ══════════ HERO ══════════ -->
 <section id="hero" class="noise">
   <canvas id="heroCanvas"></canvas>
-  <div class="scan-line"></div>
-  <!-- Pulse rings centered on hero image area -->
-  <div class="hero-ring" style="width:400px;height:400px;top:50%;right:18%;animation-delay:0s;"></div>
-  <div class="hero-ring" style="width:400px;height:400px;top:50%;right:18%;animation-delay:1.3s;"></div>
-  <div class="hero-ring" style="width:400px;height:400px;top:50%;right:18%;animation-delay:2.6s;"></div>
   <!-- Background orbs -->
   <div class="orb" style="width:700px;height:700px;background:radial-gradient(circle,rgba(92,255,61,.1),transparent);top:-200px;right:-150px;"></div>
   <div class="orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(92,255,61,.06),transparent);bottom:-100px;left:-150px;"></div>
@@ -1057,6 +1047,20 @@
       </div>
 
       <div class="reveal-r d2">
+        <div class="book-reviews">
+          <div class="book-review-card">
+            <p class="book-review-quote">"This book changed the way I hear God's voice in my everyday life. Every page felt like it was written just for me."</p>
+            <div class="book-review-meta">★★★★★ &nbsp;·&nbsp; Verified Amazon Purchase</div>
+          </div>
+          <div class="book-review-card">
+            <p class="book-review-quote">"Mondoe's words hit different. 365 days of surrender, clarity, and purpose. I didn't want it to end."</p>
+            <div class="book-review-meta">★★★★★ &nbsp;·&nbsp; Verified Amazon Purchase</div>
+          </div>
+          <div class="book-review-card">
+            <p class="book-review-quote">"A daily companion for anyone who wants to stop guessing and start walking boldly in their calling."</p>
+            <div class="book-review-meta">★★★★★ &nbsp;·&nbsp; Verified Amazon Purchase</div>
+          </div>
+        </div>
         <p class="book-release">Published March 11, 2026</p>
         <div class="book-stars">
           <span class="book-star">★</span><span class="book-star">★</span>
