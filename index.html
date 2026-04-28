@@ -56,22 +56,44 @@
 
     /* ─── MARQUEE TICKER ─── */
     .ticker-wrap {
-      overflow: hidden; background: var(--green); padding: 10px 0;
+      overflow: hidden; background: var(--green); padding: 11px 0;
       position: relative; z-index: 10;
     }
+    .ticker-wrap.reverse { background: #000; border-top: 1px solid rgba(92,255,61,.2); border-bottom: 1px solid rgba(92,255,61,.2); }
     .ticker-track {
       display: flex; gap: 0;
-      animation: tickerScroll 30s linear infinite;
+      animation: tickerScroll 28s linear infinite;
       white-space: nowrap; width: max-content;
     }
+    .ticker-track.rtl { animation: tickerScrollRTL 32s linear infinite; }
     .ticker-item {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 14px; letter-spacing: .18em;
       color: #000; padding: 0 28px;
       display: flex; align-items: center; gap: 28px;
     }
+    .ticker-wrap.reverse .ticker-item { color: var(--green); }
     .ticker-item::after { content: '✦'; opacity: .5; }
     @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes tickerScrollRTL { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
+    /* ─── HERO PULSE RINGS ─── */
+    .hero-ring {
+      position: absolute; border-radius: 50%; border: 1px solid rgba(92,255,61,.18);
+      animation: ringPulse 4s ease-out infinite; pointer-events: none;
+    }
+    @keyframes ringPulse {
+      0% { transform: translate(-50%,-50%) scale(.6); opacity: .7; }
+      100% { transform: translate(-50%,-50%) scale(1.6); opacity: 0; }
+    }
+
+    /* ─── SCAN LINE ─── */
+    .scan-line {
+      position: absolute; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(92,255,61,.5), transparent);
+      animation: scanDown 6s linear infinite; pointer-events: none; z-index: 2;
+    }
+    @keyframes scanDown { from { top: 0%; } to { top: 100%; } }
 
     /* ─── FLOATING SHAPES ─── */
     #floatCanvas {
@@ -876,24 +898,6 @@
   </button>
 </nav>
 
-<!-- ─── TICKER ─── -->
-<div class="ticker-wrap">
-  <div class="ticker-track">
-    <span class="ticker-item">MONDOE DAVIS</span>
-    <span class="ticker-item">NCAA CHAMPION 2003</span>
-    <span class="ticker-item">NY JETS #43</span>
-    <span class="ticker-item">MOTIVATIONAL SPEAKER</span>
-    <span class="ticker-item">GOD'S VOICE YOUR STORY</span>
-    <span class="ticker-item">AVAILABLE ON AMAZON</span>
-    <span class="ticker-item">MONDOE DAVIS</span>
-    <span class="ticker-item">NCAA CHAMPION 2003</span>
-    <span class="ticker-item">NY JETS #43</span>
-    <span class="ticker-item">MOTIVATIONAL SPEAKER</span>
-    <span class="ticker-item">GOD'S VOICE YOUR STORY</span>
-    <span class="ticker-item">AVAILABLE ON AMAZON</span>
-  </div>
-</div>
-
 <!-- ─── MUTE BUTTON ─── -->
 <button id="muteBtn" title="Toggle music" aria-label="Toggle music">
   <div class="sound-bars" id="soundBars">
@@ -905,6 +909,11 @@
 <!-- ══════════ HERO ══════════ -->
 <section id="hero" class="noise">
   <canvas id="heroCanvas"></canvas>
+  <div class="scan-line"></div>
+  <!-- Pulse rings centered on hero image area -->
+  <div class="hero-ring" style="width:400px;height:400px;top:50%;right:18%;animation-delay:0s;"></div>
+  <div class="hero-ring" style="width:400px;height:400px;top:50%;right:18%;animation-delay:1.3s;"></div>
+  <div class="hero-ring" style="width:400px;height:400px;top:50%;right:18%;animation-delay:2.6s;"></div>
   <!-- Background orbs -->
   <div class="orb" style="width:700px;height:700px;background:radial-gradient(circle,rgba(92,255,61,.1),transparent);top:-200px;right:-150px;"></div>
   <div class="orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(92,255,61,.06),transparent);bottom:-100px;left:-150px;"></div>
@@ -951,6 +960,24 @@
     <div class="scroll-line"></div>
   </div>
 </section>
+
+<!-- ─── TICKER (below hero) ─── -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item">MONDOE DAVIS</span>
+    <span class="ticker-item">NCAA CHAMPION 2003</span>
+    <span class="ticker-item">NY JETS #43</span>
+    <span class="ticker-item">MOTIVATIONAL SPEAKER</span>
+    <span class="ticker-item">GOD'S VOICE YOUR STORY</span>
+    <span class="ticker-item">AVAILABLE ON AMAZON</span>
+    <span class="ticker-item">MONDOE DAVIS</span>
+    <span class="ticker-item">NCAA CHAMPION 2003</span>
+    <span class="ticker-item">NY JETS #43</span>
+    <span class="ticker-item">MOTIVATIONAL SPEAKER</span>
+    <span class="ticker-item">GOD'S VOICE YOUR STORY</span>
+    <span class="ticker-item">AVAILABLE ON AMAZON</span>
+  </div>
+</div>
 
 <!-- ══════════ LEGACY ══════════ -->
 <section id="legacy" class="noise">
@@ -1144,6 +1171,24 @@
     </div>
   </div>
 </section>
+
+<!-- ─── REVERSE TICKER ─── -->
+<div class="ticker-wrap reverse">
+  <div class="ticker-track rtl">
+    <span class="ticker-item">BUILT ON THE FIELD</span>
+    <span class="ticker-item">PROVEN ON THE STAGE</span>
+    <span class="ticker-item">LIVING WITH PURPOSE</span>
+    <span class="ticker-item">FAITH · RESILIENCE · LEGACY</span>
+    <span class="ticker-item">BOOK MONDOE TODAY</span>
+    <span class="ticker-item">INSPIRING LIVES WORLDWIDE</span>
+    <span class="ticker-item">BUILT ON THE FIELD</span>
+    <span class="ticker-item">PROVEN ON THE STAGE</span>
+    <span class="ticker-item">LIVING WITH PURPOSE</span>
+    <span class="ticker-item">FAITH · RESILIENCE · LEGACY</span>
+    <span class="ticker-item">BOOK MONDOE TODAY</span>
+    <span class="ticker-item">INSPIRING LIVES WORLDWIDE</span>
+  </div>
+</div>
 
 <!-- ══════════ BOOK ══════════ -->
 <section id="book" class="noise">
