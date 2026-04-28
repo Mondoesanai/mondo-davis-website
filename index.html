@@ -54,9 +54,28 @@
     body.hovering #cursor { width: 18px; height: 18px; }
     body.hovering #cursor-ring { width: 54px; height: 54px; opacity: .35; }
 
-    /* ─── SPARKLE CANVAS ─── */
-    #sparkleCanvas {
-      position: fixed; inset: 0; pointer-events: none; z-index: 200;
+    /* ─── MARQUEE TICKER ─── */
+    .ticker-wrap {
+      overflow: hidden; background: var(--green); padding: 10px 0;
+      position: relative; z-index: 10;
+    }
+    .ticker-track {
+      display: flex; gap: 0;
+      animation: tickerScroll 30s linear infinite;
+      white-space: nowrap; width: max-content;
+    }
+    .ticker-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px; letter-spacing: .18em;
+      color: #000; padding: 0 28px;
+      display: flex; align-items: center; gap: 28px;
+    }
+    .ticker-item::after { content: '✦'; opacity: .5; }
+    @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ─── FLOATING SHAPES ─── */
+    #floatCanvas {
+      position: fixed; inset: 0; pointer-events: none; z-index: 1;
     }
 
     /* ─── ENTRANCE OVERLAY ─── */
@@ -683,6 +702,125 @@
 
     @media (max-width: 600px) { .book-row { grid-template-columns: 1fr; } }
 
+    /* ─── BOOK SECTION ─── */
+    #the-book {
+      background: #030A03; padding: 120px 0;
+      position: relative; overflow: hidden;
+    }
+    .book-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center; margin-top: 60px;
+    }
+
+    /* CSS Book Mockup */
+    .book-3d-wrap {
+      display: flex; justify-content: center; align-items: center;
+      perspective: 800px;
+    }
+    .book-3d {
+      position: relative; width: 260px; height: 360px;
+      transform-style: preserve-3d;
+      transform: rotateY(-18deg) rotateX(4deg);
+      animation: bookFloat 4s ease-in-out infinite, bookTilt 8s ease-in-out infinite;
+      filter: drop-shadow(-40px 40px 80px rgba(0,0,0,0.7)) drop-shadow(0 0 60px rgba(92,255,61,0.15));
+    }
+    @keyframes bookFloat {
+      0%,100% { transform: rotateY(-18deg) rotateX(4deg) translateY(0); }
+      50%      { transform: rotateY(-18deg) rotateX(4deg) translateY(-16px); }
+    }
+    @keyframes bookTilt {
+      0%,100% { filter: drop-shadow(-40px 40px 80px rgba(0,0,0,0.7)) drop-shadow(0 0 60px rgba(92,255,61,.15)); }
+      50%      { filter: drop-shadow(-50px 50px 100px rgba(0,0,0,.8)) drop-shadow(0 0 80px rgba(92,255,61,.25)); }
+    }
+    .book-face {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, #050f05 0%, #0a1f0a 60%, #030803 100%);
+      border: 1px solid rgba(92,255,61,0.2);
+      display: flex; flex-direction: column;
+      justify-content: space-between; padding: 32px 28px;
+      overflow: hidden;
+    }
+    .book-face::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(92,255,61,.06) 0%, transparent 60%);
+    }
+    .book-face::after {
+      content: ''; position: absolute;
+      left: 0; top: 0; bottom: 0; width: 18px;
+      background: linear-gradient(90deg, rgba(92,255,61,.15), transparent);
+    }
+    .book-cross {
+      font-size: 32px; color: rgba(92,255,61,.55);
+      position: relative; z-index: 1; line-height: 1;
+    }
+    .book-cover-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 38px; line-height: .95; letter-spacing: .04em;
+      color: var(--green); position: relative; z-index: 1;
+    }
+    .book-cover-divider { width: 40px; height: 2px; background: rgba(92,255,61,.4); margin: 10px 0; }
+    .book-cover-sub {
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+      color: rgba(255,255,255,.45); position: relative; z-index: 1;
+    }
+    .book-cover-author {
+      font-family: 'Oswald', sans-serif;
+      font-size: 13px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase;
+      color: rgba(255,255,255,.6); position: relative; z-index: 1;
+    }
+    .book-spine {
+      position: absolute; left: -22px; top: 0; bottom: 0; width: 22px;
+      background: linear-gradient(180deg, #0a1f0a 0%, #050f05 100%);
+      border-left: 1px solid rgba(92,255,61,0.12);
+      border-top: 1px solid rgba(92,255,61,0.12);
+      border-bottom: 1px solid rgba(92,255,61,0.12);
+      transform: rotateY(-90deg); transform-origin: right center;
+    }
+
+    .book-info-eyebrow { color: var(--green); }
+    .book-info-eyebrow::before { background: var(--green); }
+    .book-release {
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+      color: rgba(92,255,61,.5); margin-top: 16px;
+    }
+    .book-stars { display: flex; gap: 4px; margin: 12px 0 0; }
+    .book-star { color: var(--green); font-size: 16px; }
+    .book-desc {
+      font-size: 16px; line-height: 1.8;
+      color: rgba(255,255,255,.58); margin-top: 20px;
+    }
+    .book-desc + .book-desc { margin-top: 12px; }
+    .book-cta {
+      display: inline-flex; align-items: center; gap: 12px;
+      margin-top: 36px; padding: 16px 40px;
+      background: var(--green); color: #000;
+      font-family: 'Oswald', sans-serif; font-size: 13px;
+      letter-spacing: .22em; text-transform: uppercase; font-weight: 700;
+      text-decoration: none;
+      transition: transform .2s cubic-bezier(.4,0,.2,1), box-shadow .2s;
+    }
+    .book-cta:hover { transform: translateY(-4px); box-shadow: 0 24px 60px rgba(92,255,61,.4); }
+    .book-cta:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+    .book-cta-ghost {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-top: 36px; margin-left: 16px; padding: 16px 32px;
+      border: 1px solid rgba(92,255,61,.3); color: rgba(255,255,255,.6);
+      font-family: 'Oswald', sans-serif; font-size: 13px;
+      letter-spacing: .22em; text-transform: uppercase; font-weight: 600;
+      text-decoration: none;
+      transition: border-color .2s, color .2s, transform .2s;
+    }
+    .book-cta-ghost:hover { border-color: var(--green); color: var(--green); transform: translateY(-4px); }
+    .book-cta-row { display: flex; flex-wrap: wrap; gap: 0; align-items: center; }
+
+    @media (max-width: 900px) {
+      .book-grid { grid-template-columns: 1fr; gap: 48px; }
+      .book-3d-wrap { margin-bottom: 20px; }
+      .book-cta-ghost { margin-left: 0; margin-top: 12px; }
+    }
+
     /* ─── FOOTER ─── */
     footer {
       background: #040405; padding: 44px 52px;
@@ -704,8 +842,8 @@
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 
-<!-- Sparkle/star canvas (full screen, fixed) -->
-<canvas id="sparkleCanvas"></canvas>
+<!-- Floating shapes canvas (full screen, fixed) -->
+<canvas id="floatCanvas"></canvas>
 
 <!-- ─── ENTRANCE OVERLAY ─── -->
 <div id="entrance">
@@ -727,6 +865,7 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="#hero">Home</a></li>
     <li><a href="#legacy">Legacy</a></li>
+    <li><a href="#the-book">The Book</a></li>
     <li><a href="#mission">Mission</a></li>
     <li><a href="#stage">Speaking</a></li>
     <li><a href="#about">About</a></li>
@@ -736,6 +875,24 @@
     <span></span><span></span><span></span>
   </button>
 </nav>
+
+<!-- ─── TICKER ─── -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item">MONDOE DAVIS</span>
+    <span class="ticker-item">NCAA CHAMPION 2003</span>
+    <span class="ticker-item">NY JETS #43</span>
+    <span class="ticker-item">MOTIVATIONAL SPEAKER</span>
+    <span class="ticker-item">GOD'S VOICE YOUR STORY</span>
+    <span class="ticker-item">AVAILABLE ON AMAZON</span>
+    <span class="ticker-item">MONDOE DAVIS</span>
+    <span class="ticker-item">NCAA CHAMPION 2003</span>
+    <span class="ticker-item">NY JETS #43</span>
+    <span class="ticker-item">MOTIVATIONAL SPEAKER</span>
+    <span class="ticker-item">GOD'S VOICE YOUR STORY</span>
+    <span class="ticker-item">AVAILABLE ON AMAZON</span>
+  </div>
+</div>
 
 <!-- ─── MUTE BUTTON ─── -->
 <button id="muteBtn" title="Toggle music" aria-label="Toggle music">
@@ -843,6 +1000,55 @@
       <div class="lstt reveal d4">
         <div class="lstt-num counter" data-target="20" data-suffix="+">0</div>
         <div class="lstt-lbl">Years of Impact</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ THE BOOK ══════════ -->
+<section id="the-book" class="noise">
+  <div class="orb" style="width:600px;height:600px;background:radial-gradient(circle,rgba(92,255,61,.08),transparent);top:-100px;right:-150px;position:absolute;"></div>
+  <div class="orb" style="width:400px;height:400px;background:radial-gradient(circle,rgba(31,174,75,.07),transparent);bottom:0;left:-100px;position:absolute;"></div>
+  <div class="si">
+    <div class="eyebrow book-info-eyebrow">The Book</div>
+    <h2 class="sec-title reveal d1">GOD'S VOICE<br><span style="color:var(--green)">YOUR STORY</span></h2>
+
+    <div class="book-grid">
+      <div class="book-3d-wrap reveal-l d2">
+        <div class="book-3d">
+          <div class="book-spine"></div>
+          <div class="book-face">
+            <div class="book-cross">✝</div>
+            <div>
+              <div class="book-cover-title">GOD'S VOICE<br>YOUR STORY</div>
+              <div class="book-cover-divider"></div>
+              <div class="book-cover-sub">365 Days of Guided Journaling</div>
+            </div>
+            <div class="book-cover-author">MONDOE DAVIS</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal-r d2">
+        <p class="book-release">Published March 11, 2026</p>
+        <div class="book-stars">
+          <span class="book-star">★</span><span class="book-star">★</span>
+          <span class="book-star">★</span><span class="book-star">★</span>
+          <span class="book-star">★</span>
+        </div>
+        <p class="book-desc">
+          A 365-day guided journal designed to help you hear God's voice, document your spiritual journey, and step boldly into the life He has planned for you.
+        </p>
+        <p class="book-desc">
+          Written from decades of faith, resilience, and real-life transformation — this is more than a book. It's a daily practice of surrender, clarity, and purpose.
+        </p>
+        <div class="book-cta-row">
+          <a href="https://www.amazon.com/dp/B0GT3WCB4N?ref=cm_sw_r_ffobk_cso_sms_apin_dp_7RX51CEPKCY7QC6FE98G" target="_blank" rel="noopener" class="book-cta">
+            Order on Amazon
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="https://www.amazon.com/dp/B0GT3WCB4N?ref=cm_sw_r_ffobk_cso_sms_apin_dp_7RX51CEPKCY7QC6FE98G" target="_blank" rel="noopener" class="book-cta-ghost">Get Your Copy →</a>
+        </div>
       </div>
     </div>
   </div>
@@ -1115,57 +1321,61 @@
   });
 })();
 
-/* ─── SPARKLE TRAIL ─── */
+/* ─── FLOATING SHAPES (replaces sparkles) ─── */
 (function(){
-  const cv = document.getElementById('sparkleCanvas');
+  const cv = document.getElementById('floatCanvas');
   const cx = cv.getContext('2d');
-  let sparks = [];
-  let lastMs = 0, lastScroll = 0;
+  let shapes = [];
 
   function resize(){ cv.width=innerWidth; cv.height=innerHeight; }
-  resize(); window.addEventListener('resize',resize);
+  resize(); window.addEventListener('resize', resize);
 
-  function Spark(x,y) {
-    this.x=x; this.y=y;
-    this.size=Math.random()*5.5+1.5;
-    this.life=1;
-    this.decay=Math.random()*.022+.013;
-    this.vx=(Math.random()-.5)*3.5;
-    this.vy=(Math.random()-.5)*3.5-1.2;
-    this.rot=Math.random()*Math.PI*2;
-    this.rotS=(Math.random()-.5)*.18;
-    this.gold=Math.random()>.38;
+  const TYPES = ['diamond','circle','line','cross'];
+
+  function Shape() {
+    this.reset = function(fromBottom) {
+      this.x = Math.random() * cv.width;
+      this.y = fromBottom ? cv.height + 40 : Math.random() * cv.height;
+      this.type = TYPES[Math.floor(Math.random()*TYPES.length)];
+      this.size = Math.random() * 12 + 4;
+      this.vx = (Math.random() - 0.5) * 0.4;
+      this.vy = -(Math.random() * 0.5 + 0.15);
+      this.rot = Math.random() * Math.PI * 2;
+      this.rotS = (Math.random() - 0.5) * 0.008;
+      this.a = Math.random() * 0.12 + 0.04;
+      this.pulse = Math.random() * Math.PI * 2;
+      this.green = Math.random() > 0.45;
+    };
+    this.reset(false);
+    this.update = function() {
+      this.x += this.vx; this.y += this.vy;
+      this.rot += this.rotS; this.pulse += 0.012;
+      if (this.y < -60) this.reset(true);
+    };
+    this.draw = function() {
+      const alpha = this.a * (0.6 + 0.4 * Math.sin(this.pulse));
+      cx.save(); cx.globalAlpha = alpha;
+      cx.strokeStyle = this.green ? '#5CFF3D' : 'rgba(255,255,255,0.6)';
+      cx.lineWidth = 1; cx.translate(this.x, this.y); cx.rotate(this.rot);
+      const s = this.size;
+      if (this.type === 'diamond') {
+        cx.beginPath(); cx.moveTo(0,-s); cx.lineTo(s*.6,0); cx.lineTo(0,s); cx.lineTo(-s*.6,0); cx.closePath(); cx.stroke();
+      } else if (this.type === 'circle') {
+        cx.beginPath(); cx.arc(0,0,s*.55,0,Math.PI*2); cx.stroke();
+      } else if (this.type === 'line') {
+        cx.beginPath(); cx.moveTo(-s,0); cx.lineTo(s,0); cx.stroke();
+      } else {
+        cx.beginPath(); cx.moveTo(0,-s); cx.lineTo(0,s); cx.moveTo(-s,0); cx.lineTo(s,0); cx.stroke();
+      }
+      cx.restore();
+    };
   }
-  Spark.prototype.update=function(){ this.x+=this.vx; this.y+=this.vy; this.vy+=.06; this.rot+=this.rotS; this.life-=this.decay; };
-  Spark.prototype.draw=function(){
-    if(this.life<=0) return;
-    cx.save(); cx.globalAlpha=this.life*.85;
-    cx.translate(this.x,this.y); cx.rotate(this.rot);
-    cx.fillStyle=this.gold?'#5CFF3D':'#fff';
-    const s=this.size;
-    cx.beginPath();
-    cx.moveTo(0,-s); cx.lineTo(s*.28,-s*.28); cx.lineTo(s,0); cx.lineTo(s*.28,s*.28);
-    cx.lineTo(0,s); cx.lineTo(-s*.28,s*.28); cx.lineTo(-s,0); cx.lineTo(-s*.28,-s*.28);
-    cx.closePath(); cx.fill(); cx.restore();
-  };
 
-  document.addEventListener('mousemove', e=>{
-    const n=Date.now();
-    if(n-lastMs>28){ lastMs=n; for(let i=0;i<3;i++) sparks.push(new Spark(e.clientX,e.clientY)); }
-  });
-  document.addEventListener('touchmove', e=>{
-    const t=e.touches[0];
-    for(let i=0;i<3;i++) sparks.push(new Spark(t.clientX,t.clientY));
-  },{passive:true});
-  window.addEventListener('scroll',()=>{
-    const n=Date.now();
-    if(n-lastScroll>80){ lastScroll=n; for(let i=0;i<6;i++) sparks.push(new Spark(Math.random()*innerWidth, Math.random()*innerHeight)); }
-  });
+  for (let i = 0; i < 55; i++) { const sh = new Shape(); shapes.push(sh); }
 
   function loop(){
     cx.clearRect(0,0,cv.width,cv.height);
-    sparks=sparks.filter(s=>s.life>0);
-    sparks.forEach(s=>{ s.update(); s.draw(); });
+    shapes.forEach(s=>{ s.update(); s.draw(); });
     requestAnimationFrame(loop);
   }
   loop();
