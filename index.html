@@ -715,19 +715,30 @@
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 80px; align-items: start; margin-top: 60px;
     }
-    .book-reviews { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+    .book-reviews-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px; margin-top: 56px;
+    }
     .book-review-card {
-      border-left: 2px solid rgba(92,255,61,.4); padding: 14px 18px;
-      background: rgba(92,255,61,.04); position: relative;
+      border: 1px solid rgba(92,255,61,.15);
+      background: rgba(255,255,255,.03);
+      padding: 28px 24px; position: relative;
+    }
+    .book-review-card::before {
+      content: '\201C'; position: absolute; top: 16px; left: 20px;
+      font-size: 48px; line-height: 1; color: rgba(92,255,61,.2);
+      font-family: Georgia, serif; pointer-events: none;
     }
     .book-review-quote {
-      font-size: 14px; line-height: 1.65; color: rgba(255,255,255,.62);
-      font-style: italic; margin: 0 0 8px;
+      font-size: 14px; line-height: 1.75; color: rgba(255,255,255,.65);
+      font-style: italic; margin: 24px 0 16px; position: relative; z-index: 1;
     }
+    .book-review-stars { color: var(--green); font-size: 13px; letter-spacing: 2px; margin-bottom: 8px; }
     .book-review-meta {
       font-family: 'Oswald', sans-serif; font-size: 11px;
-      letter-spacing: .18em; color: var(--green); opacity: .7;
+      letter-spacing: .18em; text-transform: uppercase; color: rgba(92,255,61,.55);
     }
+    @media (max-width: 900px) { .book-reviews-row { grid-template-columns: 1fr; } }
 
     /* CSS Book Mockup */
     .book-3d-wrap {
@@ -1047,20 +1058,6 @@
       </div>
 
       <div class="reveal-r d2">
-        <div class="book-reviews">
-          <div class="book-review-card">
-            <p class="book-review-quote">"This book changed the way I hear God's voice in my everyday life. Every page felt like it was written just for me."</p>
-            <div class="book-review-meta">★★★★★ &nbsp;·&nbsp; Verified Amazon Purchase</div>
-          </div>
-          <div class="book-review-card">
-            <p class="book-review-quote">"Mondoe's words hit different. 365 days of surrender, clarity, and purpose. I didn't want it to end."</p>
-            <div class="book-review-meta">★★★★★ &nbsp;·&nbsp; Verified Amazon Purchase</div>
-          </div>
-          <div class="book-review-card">
-            <p class="book-review-quote">"A daily companion for anyone who wants to stop guessing and start walking boldly in their calling."</p>
-            <div class="book-review-meta">★★★★★ &nbsp;·&nbsp; Verified Amazon Purchase</div>
-          </div>
-        </div>
         <p class="book-release">Published March 11, 2026</p>
         <div class="book-stars">
           <span class="book-star">★</span><span class="book-star">★</span>
@@ -1082,6 +1079,26 @@
         </div>
       </div>
     </div>
+
+    <!-- Reviews row — full width below the book grid -->
+    <div class="book-reviews-row reveal d3">
+      <div class="book-review-card">
+        <div class="book-review-stars">★★★★★</div>
+        <p class="book-review-quote">"This book changed the way I hear God's voice in my everyday life. Every page felt like it was written just for me."</p>
+        <div class="book-review-meta">Verified Amazon Purchase</div>
+      </div>
+      <div class="book-review-card">
+        <div class="book-review-stars">★★★★★</div>
+        <p class="book-review-quote">"Mondoe's words hit different. 365 days of surrender, clarity, and purpose. I didn't want it to end."</p>
+        <div class="book-review-meta">Verified Amazon Purchase</div>
+      </div>
+      <div class="book-review-card">
+        <div class="book-review-stars">★★★★★</div>
+        <p class="book-review-quote">"A daily companion for anyone who wants to stop guessing and start walking boldly in their calling."</p>
+        <div class="book-review-meta">Verified Amazon Purchase</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
