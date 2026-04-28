@@ -762,44 +762,21 @@
     }
     .book-face {
       position: absolute; inset: 0;
-      background: linear-gradient(160deg, #050f05 0%, #0a1f0a 60%, #030803 100%);
-      border: 1px solid rgba(92,255,61,0.2);
-      display: flex; flex-direction: column;
-      justify-content: space-between; padding: 32px 28px;
       overflow: hidden;
+      border: 1px solid rgba(92,255,61,0.15);
     }
-    .book-face::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(92,255,61,.06) 0%, transparent 60%);
+    .book-face img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
     }
     .book-face::after {
-      content: ''; position: absolute;
-      left: 0; top: 0; bottom: 0; width: 18px;
-      background: linear-gradient(90deg, rgba(92,255,61,.15), transparent);
-    }
-    .book-cross {
-      font-size: 32px; color: rgba(92,255,61,.55);
-      position: relative; z-index: 1; line-height: 1;
-    }
-    .book-cover-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 38px; line-height: .95; letter-spacing: .04em;
-      color: var(--green); position: relative; z-index: 1;
-    }
-    .book-cover-divider { width: 40px; height: 2px; background: rgba(92,255,61,.4); margin: 10px 0; }
-    .book-cover-sub {
-      font-family: 'Oswald', sans-serif;
-      font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
-      color: rgba(255,255,255,.45); position: relative; z-index: 1;
-    }
-    .book-cover-author {
-      font-family: 'Oswald', sans-serif;
-      font-size: 13px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase;
-      color: rgba(255,255,255,.6); position: relative; z-index: 1;
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(120deg, rgba(255,255,255,.08) 0%, transparent 40%),
+                  linear-gradient(to bottom, transparent 70%, rgba(0,0,0,.3) 100%);
+      pointer-events: none;
     }
     .book-spine {
       position: absolute; left: -22px; top: 0; bottom: 0; width: 22px;
-      background: linear-gradient(180deg, #0a1f0a 0%, #050f05 100%);
+      background: linear-gradient(180deg, #1a3a1a 0%, #0a1f0a 50%, #050f05 100%);
       border-left: 1px solid rgba(92,255,61,0.12);
       border-top: 1px solid rgba(92,255,61,0.12);
       border-bottom: 1px solid rgba(92,255,61,0.12);
@@ -1046,13 +1023,10 @@
         <div class="book-3d">
           <div class="book-spine"></div>
           <div class="book-face">
-            <div class="book-cross">✝</div>
-            <div>
-              <div class="book-cover-title">GOD'S VOICE<br>YOUR STORY</div>
-              <div class="book-cover-divider"></div>
-              <div class="book-cover-sub">365 Days of Guided Journaling</div>
-            </div>
-            <div class="book-cover-author">MONDOE DAVIS</div>
+            <picture>
+              <source srcset="images/book-cover.webp" type="image/webp">
+              <img src="images/book-cover.png" alt="God's Voice Your Story by Mondoe Davis" loading="eager">
+            </picture>
           </div>
         </div>
       </div>
