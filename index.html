@@ -437,9 +437,12 @@
     }
 
     .legacy-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 20px; margin-top: 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px; margin-top: 56px;
     }
+    /* NCAA championship photo spans full width */
+    .leg-card:first-child { grid-column: 1 / -1; aspect-ratio: 21/9; }
     .leg-card {
       position: relative; overflow: hidden;
       aspect-ratio: 3/4;
@@ -492,6 +495,7 @@
 
     @media (max-width: 900px) {
       .legacy-grid { grid-template-columns: 1fr; }
+      .leg-card:first-child { grid-column: auto; aspect-ratio: 16/9; }
       .leg-card { aspect-ratio: 16/9; }
       .leg-stats { grid-template-columns: 1fr 1fr; }
     }
@@ -1003,7 +1007,7 @@
 
     <div class="legacy-grid">
       <div class="leg-card reveal-l d1">
-        <img src="images/ncaa.jpg" alt="2003 NCAA Division I-AA Champions" loading="lazy" style="object-position:60% 28%;">
+        <img src="images/ncaa.jpg" alt="2003 NCAA Division I-AA Champions" loading="lazy" style="object-position:55% 30%;">
         <div class="leg-card-ov">
           <div class="leg-yr">2003</div>
           <div class="leg-lbl">NCAA Division I-AA National Champion</div>
